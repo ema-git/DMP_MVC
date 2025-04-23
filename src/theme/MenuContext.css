@@ -1,0 +1,49 @@
+.contextMenuItem:hover {
+  background-color: #e0e0e0;
+}
+
+.right {
+  left: auto;
+  right: 500px;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.bordered {
+  border: 1px solid #54545454;
+  border-radius: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin: 5px;
+}
+
+.itemTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.item {
+  font-size: 16px;
+}
+
+.red {
+  border-color: red;
+  color: red;
+}
+
+.green {
+  border-color: green;
+  color: green;
+}

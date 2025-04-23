@@ -1,0 +1,46 @@
+{
+  "context": {
+    "author": {
+      "adeli": "string",
+      "rpps": "string",
+      "internalId": "string",
+      "nom": "string",
+      "prenom": "string",
+      "role": "string",
+      "specialite": "string",
+      "secteurActivite": "string",
+      "structureSante": {
+        "idNational": "string",
+        "nom": "string",
+        "adresse": {
+          "ligneAdresse": "string",
+          "complementAdresse": "string",
+          "codePostal": "string",
+          "ville": "string",
+          "pays": "string"
+        },
+        "email": "string"
+      },
+      "service": {
+        "nom": "string"
+      },
+      "telephone": "string",
+      "email": "string"
+    },
+    "confidentialityCode": {
+      "valeur": "string",
+      "identifiantNomenclature": "string",
+      "libelle": "string"
+    },
+    "modeAcces": {
+      "acces": "NORMAL",
+      "raison": "string"
+    }
+  },
+  "request": {
+    "matriculeINS": {
+      "valeur": "string",
+      "identifiantSysteme": "string"
+    }
+  }
+}

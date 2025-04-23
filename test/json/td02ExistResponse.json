@@ -1,0 +1,35 @@
+{
+  "patient": {
+    "matriculeINS": {
+      "valeur": "string",
+      "identifiantSysteme": "string"
+    },
+    "internalId": "string",
+    "civilite": "strin",
+    "nomPatronymique": "string",
+    "prenom": "string",
+    "nomUsuel": "string",
+    "prenomUsuel": "string",
+    "dateDeNaissance": "string",
+    "paysDeNaissance": "string",
+    "lieuNaissance": "strin",
+    "email": "string",
+    "telephone": "string",
+    "mobile": "string",
+    "nirOuvrantDroit": "string",
+    "adresse": {
+      "ligneAdresse": "string",
+      "complementAdresse": "string",
+      "codePostal": "string",
+      "ville": "string",
+      "pays": "string"
+    },
+    "sexe": "M"
+  },
+  "role": "STANDARD",
+  "status": "ACTIF",
+  "autorisation": "NON_EXISTE",
+  "raison": "string",
+  "compteInternetOuvert": true,
+  "rattachementENS": true
+}
