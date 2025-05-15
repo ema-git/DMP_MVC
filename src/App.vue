@@ -24,11 +24,48 @@ export default {
     MenuContextuel,
     Autorisation
   },
-  methods: {},
+  methods: {
+    formatPatientDate(patient) {
+      if (!patient) return '-';
+      
+      // Check if the patient has dateDeNaissance (from dmpDocumentsStore) or formattedDate (from patientStore)
+      if (patient.formattedDate) {
+        return patient.formattedDate;
+      } else if (patient.dateDeNaissance) {
+        const annee = patient.dateDeNaissance.substr(0, 4);
+        const mois = patient.dateDeNaissance.substr(4, 2);
+        const jour = patient.dateDeNaissance.substr(6, 2);
+        return `${jour}/${mois}/${annee}`;
+      }
+      
+      return 'Non renseigné';
+    },
+    
+    getPatientINS(patient) {
+      if (!patient) return 'Non disponible';
+      
+      // Check if the patient has matriculeINS (from dmpDocumentsStore) or ins (from patientStore)
+      if (patient.matriculeINS && patient.matriculeINS.valeur) {
+        return patient.matriculeINS.valeur;
+      } else if (patient.ins) {
+        return patient.ins;
+      }
+      
+      return 'Non disponible';
+    },
+    
+    navigateToList() {
+      // Navigate back to the list view
+      this.dmpDocumentsStore.navigateToPatientList();
+      this.$router.push('/');
+    }
+  },
   mounted() {
-    //Exécuter la requête td04List au démarrage
+    // Exécuter les requêtes de debug au démarrage
     const dmpServices = new DmpServices();
-    console.log("execution td03");
+    console.log("Exécution des requêtes de debug au démarrage...");
+    
+    // Debug info
     console.log("RPPS : " + this.userStore.rpps);
     console.log("InternalID : " + this.userStore.internalId);
     console.log("nom : " + this.userStore.nom);
@@ -36,32 +73,20 @@ export default {
     console.log("adeli : " + this.userStore.adeli);
     console.log("secteur activité : " + this.userStore.secteurActivite);
 
+    // Exécution de td03AddAuthorization
 
-    dmpServices.td03AddAuthorization(this.userStore)
+    
+    // Exécution de td04ListDMPActifs
+    console.log("Exécution td04");
+    dmpServices.td04ListDMPActifs(this.userStore)
     .then(result => {
-      console.log("Résultat de la requete td03", result);
-    })
-    .catch(error => {
-      console.error("Erreur lors de la td03: ", error)
-    });
-/*     console.log("Exécution td04");
-     dmpServices.td04ListDMPActifs(this.userStore)
-    .then(result => {
-      console.log("Résultat de la requete td04", result);
+      console.log("Résultat de la requête td04", result);
+      // Stocker les résultats dans le dmpDocumentsStore pour affichage
+      this.dmpDocumentsStore.patients = result;
     })
     .catch(error => {
       console.error("Erreur lors de la td04: ", error)
-    });  */
-    // Exécuter la requête td02Exist au démarrage du site
-/*     const dmpServices = new DmpServices();
-    console.log("Exécution de la requête td02Exist au démarrage...");
-    dmpServices.td02Exist(this.userStore, "", "")
-      .then(result => {
-        console.log("Résultat de la requête td02Exist:", result);
-      })
-      .catch(error => {
-        console.error("Erreur lors de la requête td02Exist:", error);
-      }); */
+    });
   }
 }
 </script>
@@ -69,21 +94,27 @@ export default {
 <template>
   <v-app>
     <div>
-        <Header/>
-        <Patient/>
-        <div 
-          v-if="dmpDocumentsStore.patient == null"
-          class="flex m-auto text-center"
-        >
-          Veuillez sélectionner un patient.
-        </div>
-        <Documents v-else="dmpDocumentsStore.patient != null"/>
-        <!--
-        TODO
-      <div>
-        <Autorisation/>
-      </div>
-        -->
+        <Header v-if="dmpDocumentsStore.currentView === 'list'"/>
+        <router-view></router-view>
     </div>
   </v-app>
 </template>
+
+<style scoped>
+.patient-detail-card {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.v-list-item {
+  margin-bottom: 8px;
+}
+
+.v-card-title {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+</style>

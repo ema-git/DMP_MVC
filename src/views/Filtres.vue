@@ -138,7 +138,7 @@
           <v-divider></v-divider>
           <v-expansion-panels multiple>
             <v-expansion-panel>
-              <v-expansion-panel-header>Actes</v-expansion-panel-header>
+              <v-expansion-panel-title>Actes</v-expansion-panel-title>
               <v-expansion-panel-text>
                 <v-row class="mt-2">
                   <v-col>
@@ -313,6 +313,7 @@ export default {
       dialog: false,
       filter: "",
       dmpDocumentsStore: useDmpDocumentsStore(),
+      stats: ["APPROVED", "DEPRECATED"]
     };
   },
 

@@ -25,6 +25,10 @@ export const useDmpDocumentsStore = defineStore('dmpDocuments', {
     classeDoc: [],
     typeDocAll: [],
     typeDoc: [],
+    patients: [], // Added to store patients from td04 request
+    patient: null, // Current selected patient
+    documents: [], // Documents for the selected patient
+    currentView: 'list', // 'list' or 'detail' to track the current view
   }),
   actions: {
     resetFilters() {
@@ -101,6 +105,29 @@ export const useDmpDocumentsStore = defineStore('dmpDocuments', {
       ];
 
       return allFilterList.filter(filter => filter != null && filter !== false && filter !== "").join(';');
+    },
+
+    // Méthode pour sélectionner un patient
+    selectPatient(patient) {
+      this.patient = patient;
+      console.log('Patient sélectionné:', patient);
+      // Réinitialiser les documents pour le nouveau patient
+      this.documents = [];
+    },
+    
+    // Méthode pour naviguer vers la vue détaillée d'un patient
+    navigateToPatientDetail(patient) {
+      this.patient = patient;
+      this.currentView = 'detail';
+      console.log('Navigation vers la vue détaillée du patient:', patient);
+      // Réinitialiser les documents pour le nouveau patient
+      this.documents = [];
+    },
+    
+    // Méthode pour revenir à la liste des patients
+    navigateToPatientList() {
+      this.currentView = 'list';
+      console.log('Retour à la liste des patients');
     },
   },
 });

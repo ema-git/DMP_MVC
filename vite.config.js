@@ -31,6 +31,8 @@ export default defineConfig({
     // Increase the maximum header size to accommodate large certificates
     maxHeadersCount: 100, // Increase max headers count
     maxHeaderSize: 16 * 1024 * 1024, // 16MB max header size
+    // Handle client-side routing
+    historyApiFallback: true,
     proxy: {
       '/dmp' : {
         target:'http://localhost:8080',
@@ -79,6 +81,22 @@ export default defineConfig({
           });
           proxy.on('error', function(err, req, res) {
             console.error('Proxy error in td04ListDMPActifs:', err);
+          });
+        }
+      },
+
+      '/dmp/td31Find': {
+        target: targetDmpServices,
+        ws: true,
+        changeOrigin: true,
+        secure: false,
+        configure: (proxy, options) => {
+          // Increase the maximum header size for this specific endpoint
+          proxy.on('proxyReq', function(proxyReq, req, res, options) {
+            proxyReq.setHeader('Connection', 'keep-alive');
+          });
+          proxy.on('error', function(err, req, res) {
+            console.error('Proxy error in td31Find:', err);
           });
         }
       },

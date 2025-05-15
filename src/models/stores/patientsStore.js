@@ -27,11 +27,11 @@ export const usePatientsStore = defineStore({
     }
   },
   actions: {
-    async fetchPatients(internalId) {
+    async fetchPatients(user) {
         this.isFetching = true;
         this.error = null;
 /*         try {
-            const response = await dmpServices.td04ListDMPActifs(this.userStore); debug
+            const response = await dmpServices.td04ListDMPActifs(user);
             this.patients = response.map(patient => ({
                 ...patient,
                 formattedDate: this.convertirFormatDate(patient.dateNaissance), // formatage de la date
